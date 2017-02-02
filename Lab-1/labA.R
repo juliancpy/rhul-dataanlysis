@@ -55,8 +55,8 @@ A[-c(1,3),]
 dim(A)
 
 # 5 Loading Data. 
-#getwd()
-#setwd()
+getwd()
+setwd("/Users/jcaceres/Documents/RHUL/CS4100:CS5100 DataAnalysis/rhul-dataanlysis/Lab-1")
 # set dataframe
 Auto <- read.table("Auto.data")
 # tells R that the first line of the file contains the variables of names.
@@ -99,3 +99,84 @@ summary(Auto)
 summary(mpg)
 ?range
 range(mpg)
+summary(cylinders)
+
+#Answers
+#1
+summary(Auto)
+# quantitative: mpg, displacement, horsepower, weight, acceleration
+# qualitative: cylinderes, year, origin, name
+#2 the range of each quantitative variable.
+attach(Auto)
+range(mpg)
+# 9.0 46.6
+range(displacement)
+# 68 455
+range(horsepower, na.rm=TRUE)
+# 46 230
+range(weight)
+# 1613 5140
+range(acceleration)
+# 8.0 24.8
+
+# 3 mean and standard deviation of each quantitative variable
+# qualitative: cylinderes, year, origin
+mean(cylinders) #5.458438
+sd(cylinders) #1.701577
+mean(year) #75.99496
+sd(year) # 3.690005
+mean(origin) # 1.574307
+sd(origin) # 0.8025495
+# 4 remove all observations from the 10th to 85th. What is the range,
+# mean, and standard deviation of each attribute in the subset of the data
+# that remains?
+Auto <-Auto[-c(10:85),]
+range(mpg)
+# 9.0 46.6
+range(displacement)
+# 68 455
+range(horsepower, na.rm=TRUE)
+# 46 230
+range(weight)
+# 1613 5140
+range(acceleration)
+# 8.0 24.8
+
+# 3 mean and standard deviation of each quantitative variable
+# qualitative: cylinderes, year, origin
+mean(cylinders) #5.471939
+sd(cylinders) #1.705783
+mean(year) #75.97959
+sd(year) # 3.683737
+mean(origin) # 1.576531
+sd(origin) # 0.8055182
+
+# 5. Using the full data set, investigate the attributes graphically, using scatterplots
+#    or other tools of your choice. Create some plots highlighting the
+#    relationships among the variables. Comment on your findings.
+rm(list = ls())
+Auto <- read.table("Auto.data")
+Auto <- read.table("Auto.data", header=T, na.strings = "?")
+Auto <- na.omit(Auto)
+attach(Auto)
+names(Auto)
+# plot acceleration compared to the weight
+plot(weight, acceleration, col="red")
+identify(weight, acceleration)
+# we get the maximun acceleration in vehicles betwen 2200 and 2300 or betwen 3100 and 3200
+# Auto[59,] Auto[298,] 
+
+# 6. Suppose that we wish to predict gas mileage (mpg) on the basis of the other
+#    variables. Do your plots suggest that any of the other variables might be
+#    useful in predicting mpg? Justify your answer.
+plot(acceleration, mpg, col="red")
+identify(acceleration, acceleration)
+Auto[321,]
+summary(acceleration)
+# depending of the acceleration the Auto that most gas mileage have is with acceleration 86:
+#323 46.6         4           86         65   2110         17.9   80      3 mazda glc
+plot(year, mpg, col="red")
+identify(year, mpg)
+Auto[328,]
+# Making a graphic comparation the Auto with more gas mileage is"
+#330 honda civic 1500 gl from the the 80's
